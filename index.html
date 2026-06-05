@@ -20,6 +20,7 @@
     </button>
     <nav class="main-nav" data-nav aria-label="Navegación principal">
       <a href="#propuesta">Propuesta</a>
+      <a href="#normas">Normas</a>
       <a href="#prototipos">Prototipos</a>
       <a href="#arquitectura">Arquitectura</a>
       <a href="#ruta">Ruta 90 días</a>
@@ -111,6 +112,67 @@
       </div>
     </section>
 
+    <section class="section norms-section" id="normas">
+      <div class="section-heading centered reveal">
+        <p class="eyebrow">Marco normativo operativo</p>
+        <h2>Normas que rigen el Plan de Acción IA y los prototipos de bajo riesgo.</h2>
+        <p>La propuesta organiza el cumplimiento por capas: estrategia de IA, gobierno digital, datos personales, transparencia, seguridad digital, planeamiento institucional y estándares de gestión de IA.</p>
+      </div>
+      <div class="norms-grid">
+        <article class="norm-card primary-norm reveal">
+          <span>IA / ENIA</span>
+          <h3>R.M. N.° 152-2026-PCM</h3>
+          <p>Aprueba la Estrategia Nacional de Inteligencia Artificial 2026-2030 y orienta la formulación del Plan de Acción IA, el Oficial de IA, el catálogo, indicadores, responsables y seguimiento.</p>
+        </article>
+        <article class="norm-card reveal">
+          <span>IA responsable</span>
+          <h3>Ley N.° 31814</h3>
+          <p>Promueve el uso de IA para el desarrollo económico y social con enfoque de riesgos, ética, privacidad, seguridad y participación pública-privada.</p>
+        </article>
+        <article class="norm-card reveal">
+          <span>Reglamento IA</span>
+          <h3>D.S. N.° 115-2025-PCM</h3>
+          <p>Desarrolla obligaciones para sistemas basados en IA: gestión de riesgos, transparencia, supervisión humana, seguridad, trazabilidad y reglas para usos sensibles.</p>
+        </article>
+        <article class="norm-card reveal">
+          <span>Gobierno digital</span>
+          <h3>D. Leg. N.° 1412 y D.S. N.° 029-2021-PCM</h3>
+          <p>Marco para servicios digitales, tecnologías en procedimientos administrativos, interoperabilidad, datos, seguridad digital y valor público.</p>
+        </article>
+        <article class="norm-card reveal">
+          <span>Transformación digital</span>
+          <h3>D.S. N.° 085-2023-PCM</h3>
+          <p>Aprueba la Política Nacional de Transformación Digital al 2030, base para articular IA con capacidades digitales, innovación, confianza y servicios públicos.</p>
+        </article>
+        <article class="norm-card reveal">
+          <span>Datos personales</span>
+          <h3>Ley N.° 29733 y D.S. N.° 016-2024-JUS</h3>
+          <p>Exigen finalidad, proporcionalidad, seguridad, confidencialidad, consentimiento o habilitación legal, y medidas para tratamiento de datos personales.</p>
+        </article>
+        <article class="norm-card reveal">
+          <span>Transparencia</span>
+          <h3>Ley N.° 27806, D.S. N.° 021-2019-JUS y D.S. N.° 007-2024-JUS</h3>
+          <p>Ordena acceso a información pública, excepciones, reserva y transparencia. En IA exige cuidar fuentes, trazabilidad y clasificación documental.</p>
+        </article>
+        <article class="norm-card reveal">
+          <span>Confianza digital</span>
+          <h3>D.U. N.° 007-2020</h3>
+          <p>Fortalece el Marco de Confianza Digital; aporta criterios de seguridad, prevención de riesgos digitales y coordinación institucional.</p>
+        </article>
+        <article class="norm-card reveal">
+          <span>Planeamiento</span>
+          <h3>PEI, POI, PMI y PGD</h3>
+          <p>La ENIA exige articular iniciativas priorizadas con objetivos institucionales, programación operativa, inversiones y el Plan de Gobierno Digital.</p>
+        </article>
+        <article class="norm-card reveal">
+          <span>Estándar de gestión</span>
+          <h3>NTP-ISO/IEC 42001</h3>
+          <p>Referencia para sistemas de gestión de IA: roles, controles, evaluación de impacto, mejora continua, auditoría y documentación.</p>
+        </article>
+      </div>
+      <p class="norms-note reveal">Este mapa normativo es una guía inicial para demos y preventa. Cada entidad debe validar aplicabilidad, vigencia, competencias, datos tratados y aprobaciones internas antes de implementar sistemas reales.</p>
+    </section>
+
     <section class="section prototype-section" id="prototipos">
       <div class="section-heading centered reveal">
         <p class="eyebrow">Prototipos de bajo riesgo</p>
@@ -193,6 +255,9 @@
       <button class="modal-close" type="button" aria-label="Cerrar demo" data-close-modal>×</button>
       <p class="eyebrow" data-modal-type>Demo simulada</p>
       <h2 id="modal-title" data-modal-title></h2>
+      <figure class="demo-visual">
+        <img src="" alt="" data-modal-image>
+      </figure>
       <div class="demo-board">
         <div>
           <span class="demo-label">Entrada</span>
@@ -208,6 +273,20 @@
         </div>
       </div>
       <div class="demo-result" data-modal-result></div>
+      <div class="demo-detail-grid">
+        <section>
+          <span class="demo-label">Flujo de demo</span>
+          <ol data-modal-steps></ol>
+        </section>
+        <section>
+          <span class="demo-label">Evidencia visible</span>
+          <ul data-modal-evidence></ul>
+        </section>
+      </div>
+      <div class="norms-applied">
+        <span class="demo-label">Normas y controles aplicables</span>
+        <div data-modal-norms></div>
+      </div>
       <div class="risk-control">
         <div><strong>Riesgo:</strong><span data-modal-risk></span></div>
         <div><strong>Control:</strong><span data-modal-control></span></div>

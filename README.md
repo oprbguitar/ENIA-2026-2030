@@ -19,11 +19,11 @@ Presentar una oferta profesional para ayudar a una entidad a pasar de lineamient
 
 ## Base conceptual
 
-La página toma como fundamento los documentos ubicados en `docs/`:
+La página toma como fundamento la documentación normativa ubicada en `docs/`:
 
-- `2511535-1.PDF`
-- `8081563-anexo-rm-n-152-2026-pcm-enia.pdf`
-- `resolucion.pdf`
+- **Resolución Ministerial N.° 152-2026-PCM**, que aprueba la Estrategia Nacional de Inteligencia Artificial 2026-2030.
+- **Anexo de la Resolución Ministerial N.° 152-2026-PCM: Estrategia Nacional de Inteligencia Artificial 2026-2030**.
+- **Publicación oficial en el Diario Oficial El Peruano: aprobación de la Estrategia Nacional de Inteligencia Artificial 2026-2030**.
 
 También incorpora el enfoque comercial del documento `Servicios de Consultoría en IA.docx`, especialmente las líneas de diagnóstico, planeamiento, asistencia al Oficial de Inteligencia Artificial, política responsable, matriz de riesgos, casos de uso, capacitación y apoyo a empresas proveedoras del Estado.
 

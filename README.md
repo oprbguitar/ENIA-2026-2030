@@ -25,8 +25,6 @@ La página toma como fundamento la documentación normativa ubicada en `docs/`:
 - **Anexo de la Resolución Ministerial N.° 152-2026-PCM: Estrategia Nacional de Inteligencia Artificial 2026-2030**.
 - **Publicación oficial en el Diario Oficial El Peruano: aprobación de la Estrategia Nacional de Inteligencia Artificial 2026-2030**.
 
-También incorpora el enfoque comercial del documento `Servicios de Consultoría en IA.docx`, especialmente las líneas de diagnóstico, planeamiento, asistencia al Oficial de Inteligencia Artificial, política responsable, matriz de riesgos, casos de uso, capacitación y apoyo a empresas proveedoras del Estado.
-
 ## Archivos creados
 
 - `index.html`: estructura completa de la landing en una sola página.

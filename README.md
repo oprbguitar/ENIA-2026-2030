@@ -33,6 +33,7 @@ También incorpora el enfoque comercial del documento `Servicios de Consultoría
 - `styles.css`: estilos responsive, cards, badges, línea de tiempo, arquitectura visual, modal y microinteracciones.
 - `app.js`: tarjetas interactivas de prototipos, demos simuladas, menú móvil, navegación activa y animaciones al hacer scroll.
 - `README.md`: documentación de uso, adaptación, alcance y criterios de validación.
+- `assets/`: imágenes generadas para reforzar visualmente cada prototipo de bajo riesgo.
 - `docs/`: documentos normativos de referencia.
 
 ## Cómo abrir la muestra
@@ -59,7 +60,10 @@ En la sección `Prototipos`, pulsa `Ver demo` para abrir las simulaciones.
 4. **Propuesta de valor**  
    Resume cómo convertir la ENIA en instrumentos técnicos ejecutables.
 
-5. **Prototipos**  
+5. **Normas que rigen el Plan y los prototipos**  
+   Mapa normativo con ENIA, Ley de IA, Reglamento de IA, Gobierno Digital, Transformación Digital, Protección de Datos Personales, Transparencia, Confianza Digital, planeamiento institucional y NTP-ISO/IEC 42001.
+
+6. **Prototipos**  
    Incluye cinco tarjetas interactivas:
    - Asistente Documental IA.
    - OCR + Extracción de Datos.
@@ -67,19 +71,21 @@ En la sección `Prototipos`, pulsa `Ver demo` para abrir las simulaciones.
    - Tablero del Plan de Acción IA.
    - Generador de Documentos Institucionales.
 
-6. **Arquitectura técnica**  
+   Cada prototipo incluye imagen, flujo de demo, evidencias visibles, normas aplicables, riesgo principal y control propuesto.
+
+7. **Arquitectura técnica**  
    Flujo visual: documentos institucionales, OCR, limpieza, metadatos, base documental, búsqueda semántica/RAG, aplicación interna, trazabilidad e indicadores.
 
-7. **Ruta de implementación en 90 días**  
+8. **Ruta de implementación en 90 días**  
    Fases de diagnóstico, priorización, diseño, piloto, evaluación e indicadores.
 
-8. **Entregables**  
+9. **Entregables**  
    Paquete técnico-documental para sustentar la adopción institucional de IA.
 
-9. **Indicadores**  
+10. **Indicadores**  
    KPIs referenciales de demo, no resultados reales.
 
-10. **Footer de alcance**  
+11. **Footer de alcance**  
     Aclara que la propuesta requiere adecuación por entidad, validación legal, revisión de datos personales y aprobación institucional.
 
 ## Cómo adaptar el contenido a una entidad específica
@@ -100,7 +106,7 @@ Para personalizar la muestra, reemplaza el contenido general por información de
 - GitHub Pages queda preparado para publicar la demo desde la rama `gh-pages`.
 - El menú navega a las secciones internas.
 - Las tarjetas de prototipos se generan y funcionan con JavaScript.
-- Cada botón `Ver demo` abre un modal con simulación visual.
+- Cada botón `Ver demo` abre un modal con imagen, simulación visual, pasos, evidencias, normas aplicables, riesgo y control.
 - El diseño es responsive para laptop y móvil.
 - No usa frameworks, librerías externas ni internet.
 - El texto evita prometer cumplimiento automático, certificación o emisión automática de documentos.

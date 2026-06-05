@@ -37,11 +37,11 @@ También incorpora el enfoque comercial del documento `Servicios de Consultoría
 
 ## Cómo abrir la muestra
 
-La muestra está publicada como página estática en GitHub Pages:
+La muestra está preparada como página estática de GitHub Pages:
 
 [Ver demo publicada](https://oprbguitar.github.io/ENIA-2026-2030/)
 
-También puede revisarse desde el repositorio descargado, abriendo `index.html` en un navegador. No requiere instalación, servidor local ni conexión a internet para funcionar desde los archivos.
+La rama de publicación es `gh-pages` y la carpeta de origen es `/`. También puede revisarse desde el repositorio descargado, abriendo `index.html` en un navegador. No requiere instalación, servidor local ni conexión a internet para funcionar desde los archivos.
 
 En la sección `Prototipos`, pulsa `Ver demo` para abrir las simulaciones.
 
@@ -97,7 +97,7 @@ Para personalizar la muestra, reemplaza el contenido general por información de
 ## Criterios de aceptación cubiertos
 
 - `index.html` abre localmente.
-- GitHub Pages publica la demo desde la rama principal.
+- GitHub Pages queda preparado para publicar la demo desde la rama `gh-pages`.
 - El menú navega a las secciones internas.
 - Las tarjetas de prototipos se generan y funcionan con JavaScript.
 - Cada botón `Ver demo` abre un modal con simulación visual.

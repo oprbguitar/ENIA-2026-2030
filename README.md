@@ -37,18 +37,13 @@ También incorpora el enfoque comercial del documento `Servicios de Consultoría
 
 ## Cómo abrir la muestra
 
-No requiere instalación, servidor local ni conexión a internet.
+La muestra está publicada como página estática en GitHub Pages:
 
-1. Abre la carpeta del proyecto.
-2. Haz doble clic en `index.html`.
-3. Navega por el menú superior.
-4. En la sección `Prototipos`, pulsa `Ver demo` para abrir las simulaciones.
+[Ver demo publicada](https://oprbguitar.github.io/ENIA-2026-2030/)
 
-Ruta local sugerida:
+También puede revisarse desde el repositorio descargado, abriendo `index.html` en un navegador. No requiere instalación, servidor local ni conexión a internet para funcionar desde los archivos.
 
-```text
-C:\Users\oprbg\Documents\Proyectos Codex\Proyecto AI\index.html
-```
+En la sección `Prototipos`, pulsa `Ver demo` para abrir las simulaciones.
 
 ## Secciones de la página
 
@@ -102,6 +97,7 @@ Para personalizar la muestra, reemplaza el contenido general por información de
 ## Criterios de aceptación cubiertos
 
 - `index.html` abre localmente.
+- GitHub Pages publica la demo desde la rama principal.
 - El menú navega a las secciones internas.
 - Las tarjetas de prototipos se generan y funcionan con JavaScript.
 - Cada botón `Ver demo` abre un modal con simulación visual.

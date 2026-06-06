@@ -784,7 +784,9 @@ h3 {
 
 .demo-status,
 .demo-disclaimer,
-.author-note {
+.author-note,
+.demo-help,
+.download-panel {
   margin: 12px 0;
   padding: 13px 15px;
   border-radius: 8px;
@@ -796,6 +798,48 @@ h3 {
 .demo-status.is-loading {
   color: #6b2630;
   background: #fff4f2;
+}
+
+.demo-help {
+  display: grid;
+  gap: 7px;
+  color: var(--ink);
+  background: #f7fbff;
+  border: 1px solid rgba(37, 92, 153, 0.14);
+  font-size: 0.94rem;
+}
+
+.demo-help strong {
+  color: var(--blue);
+  font-size: 1.02rem;
+}
+
+.download-panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  color: var(--ink);
+  background: #fffdfa;
+  border: 1px solid var(--line);
+}
+
+.download-panel div {
+  display: grid;
+  gap: 4px;
+}
+
+.download-panel span {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 750;
+}
+
+.download-panel button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+  box-shadow: none;
 }
 
 .demo-disclaimer {
@@ -979,8 +1023,14 @@ h3 {
   .demo-board,
   .demo-detail-grid,
   .demo-controls,
+  .download-panel,
   .risk-control {
     grid-template-columns: 1fr;
+  }
+
+  .download-panel {
+    align-items: stretch;
+    flex-direction: column;
   }
 }
 

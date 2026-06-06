@@ -1,7 +1,7 @@
 import { demoResponseSchema } from "../prompts/prototypePrompts.mjs";
 import { generateMockDemo } from "./mock.provider.mjs";
 
-const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent";
 const TIMEOUT_MS = 14000;
 
 function parseGeminiJson(payload) {
@@ -19,6 +19,19 @@ function validateDemoShape(data) {
     throw new Error(`Gemini JSON missing required fields: ${missing.join(", ")}`);
   }
   return data;
+}
+
+function normalizeDemoResponse(data, prototypeId) {
+  return {
+    ...data,
+    prototypeId,
+    aiProcess: Array.isArray(data.aiProcess) ? data.aiProcess : [],
+    evidence: Array.isArray(data.evidence) ? data.evidence : [],
+    kpis: Array.isArray(data.kpis) ? data.kpis : [],
+    disclaimer: "Demo asistida por IA. No sustituye validación técnica, legal ni institucional.",
+    author: "Creado por Pierre R.",
+    contact: "peru.labs.pe@gmail.com"
+  };
 }
 
 export async function generateGeminiDemo({ prompt, prototypeId }) {
@@ -53,7 +66,7 @@ export async function generateGeminiDemo({ prompt, prototypeId }) {
     }
 
     const payload = await response.json();
-    return validateDemoShape(parseGeminiJson(payload));
+    return normalizeDemoResponse(validateDemoShape(parseGeminiJson(payload)), prototypeId);
   } catch (error) {
     console.warn(`[gemini.provider] Fallback mock: ${error.message}`);
     return generateMockDemo({ prototypeId });

@@ -135,7 +135,10 @@ const demoForm = document.querySelector("[data-demo-form]");
 const caseTypeSelect = document.querySelector("[data-case-type]");
 const userInput = document.querySelector("[data-user-input]");
 const demoStatus = document.querySelector("[data-demo-status]");
+const downloadButton = document.querySelector("[data-download-demo]");
+const downloadHint = document.querySelector("[data-download-hint]");
 let activePrototype = null;
+let latestDemoResult = null;
 
 function createPrototypeCard(item, index) {
   const card = document.createElement("article");
@@ -178,6 +181,130 @@ function renderNorms(items) {
   });
 }
 
+function getExportFormat() {
+  const selectedCase = caseTypeSelect.value.toLowerCase();
+  if (!activePrototype) return "word";
+  if (activePrototype.id === "riesgos" || activePrototype.id === "tablero" || selectedCase.includes("riesgo") || selectedCase.includes("tablero")) {
+    return "excel";
+  }
+  return "word";
+}
+
+function updateDownloadHint() {
+  const format = getExportFormat();
+  const label = format === "excel" ? "Excel (.xls)" : "Word (.doc)";
+  downloadHint.textContent = `La salida se descargará como ${label}. Demo rápida y caso documental usan Word; tablero y riesgo usan Excel.`;
+}
+
+function escapeHtml(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function listHtml(items = []) {
+  return `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+}
+
+function safeFilename(value = "demo") {
+  return String(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9_-]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .toLowerCase()
+    .slice(0, 80) || "demo";
+}
+
+function buildWordFallback(data) {
+  return `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(data.title)}</title></head><body>
+    <h1>${escapeHtml(data.title)}</h1>
+    <p><strong>Tipo de caso:</strong> ${escapeHtml(caseTypeSelect.value)}</p>
+    <p><strong>Prototipo:</strong> ${escapeHtml(data.prototypeId)}</p>
+    <h2>Escenario</h2><p>${escapeHtml(data.scenario)}</p>
+    <h2>Entrada</h2><p>${escapeHtml(data.inputSummary)}</p>
+    <h2>Proceso IA</h2>${listHtml(data.aiProcess)}
+    <h2>Salida simulada</h2><p>${escapeHtml(data.simulatedOutput)}</p>
+    <h2>Evidencia</h2>${listHtml(data.evidence)}
+    <h2>Riesgo y control</h2><p><strong>Riesgo:</strong> ${escapeHtml(data.risk)}</p><p><strong>Control:</strong> ${escapeHtml(data.control)}</p>
+    <p><strong>Revisión humana:</strong> ${escapeHtml(data.humanReview)}</p>
+    <h2>KPIs</h2>${listHtml(data.kpis)}
+    <p>${escapeHtml(data.disclaimer)}</p>
+    <p><strong>Creado por Pierre R.</strong> | Contacto: peru.labs.pe@gmail.com</p>
+  </body></html>`;
+}
+
+function buildExcelFallback(data) {
+  const rows = [
+    ["Campo", "Valor"],
+    ["Título", data.title],
+    ["Tipo de caso", caseTypeSelect.value],
+    ["Prototipo", data.prototypeId],
+    ["Escenario", data.scenario],
+    ["Entrada", data.inputSummary],
+    ["Proceso IA", (data.aiProcess || []).join(" | ")],
+    ["Salida simulada", data.simulatedOutput],
+    ["Evidencia", (data.evidence || []).join(" | ")],
+    ["Riesgo", data.risk],
+    ["Control", data.control],
+    ["Revisión humana", data.humanReview],
+    ["KPIs", (data.kpis || []).join(" | ")],
+    ["Disclaimer", data.disclaimer],
+    ["Autor", "Creado por Pierre R."],
+    ["Contacto", "peru.labs.pe@gmail.com"]
+  ];
+  return `<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(data.title)}</title></head><body><table border="1">
+    ${rows.map((row, index) => `<tr>${row.map((cell) => index === 0 ? `<th>${escapeHtml(cell)}</th>` : `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}
+  </table></body></html>`;
+}
+
+function triggerDownload(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function downloadFallbackFile() {
+  const format = getExportFormat();
+  const filename = `${safeFilename(activePrototype.id)}-${safeFilename(caseTypeSelect.value)}.${format === "excel" ? "xls" : "doc"}`;
+  const html = format === "excel" ? buildExcelFallback(latestDemoResult) : buildWordFallback(latestDemoResult);
+  const type = format === "excel" ? "application/vnd.ms-excel;charset=utf-8" : "application/msword;charset=utf-8";
+  triggerDownload(new Blob([html], { type }), filename);
+}
+
+async function downloadDemoResult() {
+  if (!latestDemoResult || !activePrototype) return;
+
+  try {
+    const response = await fetch("/api/export", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        prototypeId: activePrototype.id,
+        caseType: caseTypeSelect.value,
+        demoResult: latestDemoResult
+      })
+    });
+
+    if (!response.ok) throw new Error(`Export error ${response.status}`);
+    const blob = await response.blob();
+    const disposition = response.headers.get("Content-Disposition") || "";
+    const filename = disposition.match(/filename="([^"]+)"/)?.[1] || `${safeFilename(activePrototype.id)}.${getExportFormat() === "excel" ? "xls" : "doc"}`;
+    triggerDownload(blob, filename);
+  } catch (error) {
+    console.warn(`[frontend] Fallback download: ${error.message}`);
+    downloadFallbackFile();
+  }
+}
+
 function renderPrototypes() {
   prototypes.forEach((item, index) => {
     grid.appendChild(createPrototypeCard(item, index));
@@ -185,6 +312,9 @@ function renderPrototypes() {
 }
 
 function setLoadingState(message = "Ejecutando demo asistida por IA...") {
+  latestDemoResult = null;
+  downloadButton.disabled = true;
+  updateDownloadHint();
   demoStatus.textContent = message;
   demoStatus.classList.add("is-loading");
   document.querySelector("[data-modal-result]").textContent = "La demo está consultando el backend seguro. La clave de IA nunca viaja al navegador.";
@@ -198,21 +328,31 @@ function setLoadingState(message = "Ejecutando demo asistida por IA...") {
 }
 
 function renderDemoResponse(data) {
+  latestDemoResult = {
+    ...data,
+    prototypeId: activePrototype.id,
+    aiProcess: Array.isArray(data.aiProcess) ? data.aiProcess : [],
+    evidence: Array.isArray(data.evidence) ? data.evidence : [],
+    kpis: Array.isArray(data.kpis) ? data.kpis : [],
+    disclaimer: data.disclaimer || "Demo asistida por IA. No sustituye validación técnica, legal ni institucional."
+  };
   demoStatus.textContent = "Demo IA ejecutada correctamente.";
   demoStatus.classList.remove("is-loading");
-  document.querySelector("[data-modal-title]").textContent = data.title || activePrototype.name;
-  document.querySelector("[data-modal-input]").textContent = data.inputSummary || activePrototype.input;
-  document.querySelector("[data-modal-processing]").textContent = data.scenario || activePrototype.processing;
-  document.querySelector("[data-modal-output]").textContent = data.prototypeId || activePrototype.output;
-  document.querySelector("[data-modal-result]").textContent = data.simulatedOutput || activePrototype.demo;
-  renderList("[data-modal-steps]", data.aiProcess || activePrototype.steps, "li");
-  renderList("[data-modal-evidence]", data.evidence || activePrototype.evidence, "li");
+  document.querySelector("[data-modal-title]").textContent = latestDemoResult.title || activePrototype.name;
+  document.querySelector("[data-modal-input]").textContent = latestDemoResult.inputSummary || activePrototype.input;
+  document.querySelector("[data-modal-processing]").textContent = latestDemoResult.scenario || activePrototype.processing;
+  document.querySelector("[data-modal-output]").textContent = latestDemoResult.prototypeId || activePrototype.output;
+  document.querySelector("[data-modal-result]").textContent = latestDemoResult.simulatedOutput || activePrototype.demo;
+  renderList("[data-modal-steps]", latestDemoResult.aiProcess.length ? latestDemoResult.aiProcess : activePrototype.steps, "li");
+  renderList("[data-modal-evidence]", latestDemoResult.evidence.length ? latestDemoResult.evidence : activePrototype.evidence, "li");
   renderNorms(activePrototype.norms);
-  document.querySelector("[data-modal-risk]").textContent = data.risk || activePrototype.risk;
-  document.querySelector("[data-modal-control]").textContent = data.control || activePrototype.control;
-  document.querySelector("[data-modal-human-review]").textContent = data.humanReview || "Revisión obligatoria por responsable institucional.";
-  document.querySelector("[data-modal-kpis]").textContent = Array.isArray(data.kpis) ? data.kpis.join(" | ") : "KPIs no disponibles";
-  document.querySelector("[data-modal-disclaimer]").textContent = data.disclaimer || "Demo asistida por IA. No sustituye validación técnica, legal ni institucional.";
+  document.querySelector("[data-modal-risk]").textContent = latestDemoResult.risk || activePrototype.risk;
+  document.querySelector("[data-modal-control]").textContent = latestDemoResult.control || activePrototype.control;
+  document.querySelector("[data-modal-human-review]").textContent = latestDemoResult.humanReview || "Revisión obligatoria por responsable institucional.";
+  document.querySelector("[data-modal-kpis]").textContent = latestDemoResult.kpis.length ? latestDemoResult.kpis.join(" | ") : "KPIs no disponibles";
+  document.querySelector("[data-modal-disclaimer]").textContent = latestDemoResult.disclaimer;
+  downloadButton.disabled = false;
+  updateDownloadHint();
 }
 
 function renderClientFallback() {
@@ -282,8 +422,11 @@ function openDemo(index) {
   document.querySelector("[data-modal-disclaimer]").textContent = "Demo asistida por IA. No sustituye validación técnica, legal ni institucional.";
   demoStatus.textContent = "Ejecutando demo asistida por IA...";
   demoStatus.classList.add("is-loading");
+  latestDemoResult = null;
+  downloadButton.disabled = true;
   userInput.value = "";
   caseTypeSelect.value = "demo rápida";
+  updateDownloadHint();
   modal.hidden = false;
   closeModal.focus();
   executeAiDemo();
@@ -306,6 +449,10 @@ function setupInteractions() {
     event.preventDefault();
     executeAiDemo();
   });
+
+  caseTypeSelect.addEventListener("change", updateDownloadHint);
+
+  downloadButton.addEventListener("click", downloadDemoResult);
 
   modal.addEventListener("click", (event) => {
     if (event.target === modal) hideDemo();

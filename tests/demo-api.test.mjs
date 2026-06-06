@@ -44,4 +44,36 @@ describe("POST /api/demo", () => {
       .send({ prototypeId: "invalido", demoMode: true })
       .expect(400);
   });
+
+  it("exports documentary cases as Word-compatible files", async () => {
+    process.env.AI_PROVIDER = "mock";
+    const demo = await request(app)
+      .post("/api/demo")
+      .send({ prototypeId: "documental", caseType: "caso documental", demoMode: true })
+      .expect(200);
+
+    const exportResponse = await request(app)
+      .post("/api/export")
+      .send({ prototypeId: "documental", caseType: "caso documental", demoResult: demo.body })
+      .expect(200);
+
+    expect(exportResponse.headers["content-type"]).toContain("application/msword");
+    expect(exportResponse.headers["content-disposition"]).toContain(".doc");
+  });
+
+  it("exports dashboard and risk cases as Excel-compatible files", async () => {
+    process.env.AI_PROVIDER = "mock";
+    const demo = await request(app)
+      .post("/api/demo")
+      .send({ prototypeId: "tablero", caseType: "caso de tablero", demoMode: true })
+      .expect(200);
+
+    const exportResponse = await request(app)
+      .post("/api/export")
+      .send({ prototypeId: "tablero", caseType: "caso de tablero", demoResult: demo.body })
+      .expect(200);
+
+    expect(exportResponse.headers["content-type"]).toContain("application/vnd.ms-excel");
+    expect(exportResponse.headers["content-disposition"]).toContain(".xls");
+  });
 });

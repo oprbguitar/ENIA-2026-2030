@@ -61,6 +61,37 @@ Prototipos disponibles:
 - `tablero`: Tablero del Plan de Acción IA.
 - `generador`: Generador de Documentos Institucionales.
 
+## Cómo usar la demo si no conoces IA
+
+1. Elige un prototipo y pulsa `Ver demo`.
+2. Selecciona el tipo de caso:
+   - `Demo rápida`: genera una explicación breve y descargable en Word.
+   - `Caso documental`: genera una salida documental más detallada y descargable en Word.
+   - `Caso de riesgo`: genera una matriz o lectura de riesgos descargable en Excel.
+   - `Caso de tablero`: genera seguimiento, semáforos y KPIs descargables en Excel.
+3. Escribe una consulta corta si deseas. Ejemplos:
+   - `evaluar piloto de búsqueda documental`
+   - `clasificar expedientes escaneados`
+   - `revisar riesgos de datos personales`
+   - `crear tablero de iniciativas IA`
+4. La demo devuelve:
+   - escenario simulado;
+   - proceso IA;
+   - salida generada;
+   - evidencias;
+   - riesgo;
+   - control;
+   - revisión humana;
+   - KPIs;
+   - archivo descargable.
+
+En local, el archivo se genera desde el backend con `/api/export`. En GitHub Pages, si no hay backend, la página genera un archivo equivalente desde el navegador como fallback.
+
+Regla de descarga:
+
+- Word `.doc`: demo rápida y caso documental.
+- Excel `.xls`: tablero y riesgo.
+
 La respuesta siempre usa JSON estructurado:
 
 ```json

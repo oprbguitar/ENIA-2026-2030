@@ -47,6 +47,9 @@ Reglas:
 - Presenta la salida como simulación aplicada a una entidad pública.
 - Mantén enfoque ENIA, Plan de Acción IA, Oficial de IA, trazabilidad, riesgos, protección de datos y supervisión humana.
 - No sugieras decisiones automáticas ni emisión automática de actos administrativos.
+- Si el caso seleccionado es "demo rápida" o "caso documental", redacta la salida para que pueda descargarse como Word: explicación clara, párrafos breves y evidencias en lista.
+- Si el caso seleccionado es "caso de riesgo" o "caso de tablero", estructura la salida para que pueda descargarse como Excel: campos concretos, semáforos, porcentajes, controles, responsables o métricas.
+- Para los prototipos "riesgos" y "tablero", prioriza información tabular y medible aunque el usuario elija demo rápida.
 - Incluye notas de derechos de autor de forma sobria: ${authorNotice}
 `;
 

@@ -1,0 +1,22 @@
+{
+  "name": "enia-ia-publica-responsable",
+  "version": "1.0.0",
+  "description": "Demo funcional asistida por IA para prototipos de IA Pública Responsable alineados a ENIA 2026-2030.",
+  "type": "module",
+  "scripts": {
+    "dev": "node server/server.mjs",
+    "start": "node server/server.mjs",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:all": "vitest run && playwright test"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "supertest": "^7.0.0",
+    "vitest": "^2.1.8"
+  }
+}

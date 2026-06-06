@@ -1,21 +1,12 @@
-# Propuesta de Valor: Implementación Responsable de IA para Entidades Públicas - ENIA 2026-2030
+# IA Pública Responsable - Demo asistida por IA para ENIA 2026-2030
 
-Landing/demo funcional de una propuesta de consultoría y prototipado de inteligencia artificial responsable para entidades públicas peruanas, consultoras y empresas proveedoras del Estado.
+Demo funcional para presentar prototipos de IA responsable orientados a entidades públicas, alineados al enfoque de la ENIA 2026-2030, Plan de Acción IA, Oficial de IA, trazabilidad, gestión de riesgos y supervisión humana.
 
-La muestra transforma el marco de la ENIA 2026-2030 en una experiencia visual ejecutiva: diagnóstico, Plan de Acción IA, prototipos documentales, gobierno de datos, riesgos, indicadores, trazabilidad y supervisión humana.
+La landing conserva su diseño visual, pero ahora puede ejecutar demos asistidas por IA mediante un backend seguro en Node.js/Express y una sola API externa: Gemini API. La clave nunca se expone en el frontend ni debe subirse a GitHub.
 
-## Objetivo
-
-Presentar una oferta profesional para ayudar a una entidad a pasar de lineamientos estratégicos a instrumentos ejecutables:
-
-- Informe de diagnóstico de madurez y oportunidades de IA.
-- Matriz de procesos priorizados.
-- Fichas de casos de uso.
-- Política institucional de uso seguro, responsable y ético de IA.
-- Matriz de riesgos IA.
-- Prototipos funcionales de bajo riesgo.
-- Tablero de seguimiento del Plan de Acción IA.
-- Plan de Acción IA preliminar articulado con PEI, POI, Programa Multianual de Inversiones y Plan de Gobierno Digital.
+**Creado por Pierre R.**  
+Contacto: [peru.labs.pe@gmail.com](mailto:peru.labs.pe@gmail.com)  
+Todos los derechos reservados para fines demostrativos, educativos y de evaluación técnica.
 
 ## Base conceptual
 
@@ -25,93 +16,171 @@ La página toma como fundamento la documentación normativa ubicada en `docs/`:
 - **Anexo de la Resolución Ministerial N.° 152-2026-PCM: Estrategia Nacional de Inteligencia Artificial 2026-2030**.
 - **Publicación oficial en el Diario Oficial El Peruano: aprobación de la Estrategia Nacional de Inteligencia Artificial 2026-2030**.
 
-## Archivos creados
+Este repositorio presenta contexto de demo. No constituye asesoría legal ni reemplaza diagnóstico técnico, revisión de protección de datos personales o aprobación institucional.
 
-- `index.html`: estructura completa de la landing en una sola página.
-- `styles.css`: estilos responsive, cards, badges, línea de tiempo, arquitectura visual, modal y microinteracciones.
-- `app.js`: tarjetas interactivas de prototipos, demos simuladas, menú móvil, navegación activa y animaciones al hacer scroll.
-- `README.md`: documentación de uso, adaptación, alcance y criterios de validación.
-- `assets/`: imágenes generadas para reforzar visualmente cada prototipo de bajo riesgo.
-- `docs/`: documentos normativos de referencia.
+## Arquitectura
 
-## Cómo abrir la muestra
+```text
+public/
+  index.html
+  styles.css
+  app.js
+  assets/
 
-La muestra está preparada como página estática de GitHub Pages:
+server/
+  server.mjs
+  routes/demo.routes.mjs
+  providers/gemini.provider.mjs
+  providers/mock.provider.mjs
+  prompts/prototypePrompts.mjs
+  data/eniaContext.mjs
 
-[Ver demo publicada](https://oprbguitar.github.io/ENIA-2026-2030/)
+tests/
+  prompt.test.mjs
+  demo-api.test.mjs
+  ui.spec.mjs
+```
 
-La rama de publicación es `gh-pages` y la carpeta de origen es `/`. También puede revisarse desde el repositorio descargado, abriendo `index.html` en un navegador. No requiere instalación, servidor local ni conexión a internet para funcionar desde los archivos.
+## Prototipos
 
-En la sección `Prototipos`, pulsa `Ver demo` para abrir las simulaciones.
+Cada botón `Ver demo` abre un modal, muestra estado de ejecución y llama a `POST /api/demo` con:
 
-## Secciones de la página
+```json
+{
+  "prototypeId": "documental",
+  "userInput": "texto opcional",
+  "demoMode": true
+}
+```
 
-1. **Header fijo**  
-   Logo textual `IA Pública Responsable`, menú interno y botón directo a prototipos.
+Prototipos disponibles:
 
-2. **Hero principal**  
-   Presenta la promesa central: IA institucional para cumplir, ordenar y acelerar la gestión pública.
+- `documental`: Asistente Documental IA.
+- `ocr`: OCR + Extracción de Datos.
+- `riesgos`: Matriz de Riesgos IA.
+- `tablero`: Tablero del Plan de Acción IA.
+- `generador`: Generador de Documentos Institucionales.
 
-3. **Problema**  
-   Explica cuatro dolores habituales: procesos repetitivos, información dispersa, falta de indicadores y uso informal sin controles.
+La respuesta siempre usa JSON estructurado:
 
-4. **Propuesta de valor**  
-   Resume cómo convertir la ENIA en instrumentos técnicos ejecutables.
+```json
+{
+  "title": "",
+  "prototypeId": "",
+  "scenario": "",
+  "inputSummary": "",
+  "aiProcess": [],
+  "simulatedOutput": "",
+  "evidence": [],
+  "risk": "",
+  "control": "",
+  "humanReview": "",
+  "kpis": [],
+  "disclaimer": "Demo asistida por IA. No sustituye validación técnica, legal ni institucional."
+}
+```
 
-5. **Normas que rigen el Plan y los prototipos**  
-   Mapa normativo con ENIA, Ley de IA, Reglamento de IA, Gobierno Digital, Transformación Digital, Protección de Datos Personales, Transparencia, Confianza Digital, planeamiento institucional y NTP-ISO/IEC 42001.
+## Instalación
 
-6. **Prototipos**  
-   Incluye cinco tarjetas interactivas:
-   - Asistente Documental IA.
-   - OCR + Extracción de Datos.
-   - Matriz de Riesgos IA.
-   - Tablero del Plan de Acción IA.
-   - Generador de Documentos Institucionales.
+```bash
+npm install
+```
 
-   Cada prototipo incluye imagen, flujo de demo, evidencias visibles, normas aplicables, riesgo principal y control propuesto.
+## Configurar Gemini API
 
-7. **Arquitectura técnica**  
-   Flujo visual: documentos institucionales, OCR, limpieza, metadatos, base documental, búsqueda semántica/RAG, aplicación interna, trazabilidad e indicadores.
+1. Crea una API key en Google AI Studio: [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
+2. Copia `.env.example` como `.env`.
+3. Completa la variable:
 
-8. **Ruta de implementación en 90 días**  
-   Fases de diagnóstico, priorización, diseño, piloto, evaluación e indicadores.
+```bash
+GEMINI_API_KEY=tu_api_key_real
+PORT=3000
+AI_PROVIDER=gemini
+```
 
-9. **Entregables**  
-   Paquete técnico-documental para sustentar la adopción institucional de IA.
+Si `GEMINI_API_KEY` no existe, el backend usa automáticamente `mock.provider.mjs`. Esto permite demostrar el flujo sin exponer claves.
 
-10. **Indicadores**  
-   KPIs referenciales de demo, no resultados reales.
+## Ejecutar localmente
 
-11. **Footer de alcance**  
-    Aclara que la propuesta requiere adecuación por entidad, validación legal, revisión de datos personales y aprobación institucional.
+```bash
+npm run dev
+```
 
-## Cómo adaptar el contenido a una entidad específica
+Luego abre:
 
-Para personalizar la muestra, reemplaza el contenido general por información de la entidad:
+[http://localhost:3000](http://localhost:3000)
 
-- Nombre de la entidad, sector, alcance territorial y público objetivo.
-- Procesos documentales prioritarios: trámite documentario, archivo, contrataciones, fiscalización, atención ciudadana, inversiones, recursos humanos u otros.
-- Instrumentos institucionales vigentes: PEI, POI, Plan de Gobierno Digital, directivas internas, mapas de procesos y matrices de riesgos.
-- Fuentes documentales disponibles: PDF, Word, Excel, expedientes, sistemas internos, repositorios, bases de datos y archivos escaneados.
-- Responsables reales: Oficial de Inteligencia Artificial, Comité de Gobierno y Transformación Digital, TI, seguridad digital, gobierno de datos, área legal y dueños de procesos.
-- Indicadores de línea base: tiempos actuales, volumen documental, número de expedientes, errores frecuentes, costos operativos y riesgos identificados.
-- Prototipos priorizados según impacto, viabilidad, costo, sensibilidad de datos y riesgo institucional.
+## Ejecutar pruebas
 
-## Criterios de aceptación cubiertos
+Pruebas unitarias/API con Vitest:
 
-- `index.html` abre localmente.
-- GitHub Pages queda preparado para publicar la demo desde la rama `gh-pages`.
-- El menú navega a las secciones internas.
-- Las tarjetas de prototipos se generan y funcionan con JavaScript.
-- Cada botón `Ver demo` abre un modal con imagen, simulación visual, pasos, evidencias, normas aplicables, riesgo y control.
-- El diseño es responsive para laptop y móvil.
-- No usa frameworks, librerías externas ni internet.
-- El texto evita prometer cumplimiento automático, certificación o emisión automática de documentos.
-- La propuesta deja claro que todo uso real requiere diagnóstico, validación institucional, protección de datos, controles de seguridad y supervisión humana.
+```bash
+npm test
+```
 
-## Alcance y cautelas
+Pruebas E2E con Playwright:
 
-Esta página es una muestra inicial para conversación comercial, validación ejecutiva o demostración de enfoque. No reemplaza asesoría legal, evaluación de impacto, diagnóstico técnico real, revisión de protección de datos personales, análisis de seguridad digital ni aprobación institucional.
+```bash
+npm run test:e2e
+```
 
-La IA se presenta como apoyo. No decide, no firma, no emite actos administrativos y no reemplaza la validación del responsable.
+Todo:
+
+```bash
+npm run test:all
+```
+
+## Seguridad
+
+- Nunca coloques `GEMINI_API_KEY` en `public/app.js`, HTML, CSS o GitHub Pages.
+- Nunca subas `.env` al repositorio.
+- No uses datos personales reales, expedientes reales ni documentos sensibles en demos públicas.
+- El backend limita el tamaño del JSON recibido.
+- Si Gemini falla, tarda demasiado o devuelve una respuesta inválida, el sistema usa fallback mock.
+- La IA asiste; no decide, no firma y no emite actos administrativos.
+
+## Despliegue
+
+### Frontend estático
+
+El contenido de `public/` puede publicarse como frontend estático, por ejemplo en GitHub Pages. En ese caso, si no hay backend disponible, la UI muestra fallback local sin usar claves.
+
+Página pública actual:
+
+[https://oprbguitar.github.io/ENIA-2026-2030/](https://oprbguitar.github.io/ENIA-2026-2030/)
+
+### Backend
+
+Despliega el backend Node.js en un servicio que soporte variables de entorno, por ejemplo Render, Railway, Fly.io, Cloud Run, Azure App Service o un VPS.
+
+Variables necesarias:
+
+```bash
+GEMINI_API_KEY=tu_api_key_real
+PORT=3000
+AI_PROVIDER=gemini
+```
+
+Para producción, configura CORS o proxy según el dominio del frontend. No expongas la clave en el navegador.
+
+## Subir cambios a GitHub
+
+```bash
+git add .
+git commit -m "mensaje del cambio"
+git push origin main
+```
+
+Para actualizar una publicación estática en `gh-pages`, publica solo el contenido seguro de `public/`. No publiques `.env`, `node_modules`, reportes de prueba ni claves.
+
+## Criterios cubiertos
+
+- `npm install` instala dependencias.
+- `npm run dev` levanta backend y frontend en localhost.
+- Los cinco botones `Ver demo` ejecutan demo.
+- Con API key usa Gemini.
+- Sin API key usa mock.
+- Las respuestas se muestran en el modal.
+- `npm test` valida prompts y API.
+- La clave no se filtra al frontend.
+- La demo conserva enfoque ENIA, Plan de Acción IA, OIA, trazabilidad, riesgos y supervisión humana.

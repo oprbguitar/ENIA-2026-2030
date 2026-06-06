@@ -258,6 +258,23 @@
       <figure class="demo-visual">
         <img src="" alt="" data-modal-image>
       </figure>
+      <form class="demo-controls" data-demo-form>
+        <label>
+          Tipo de caso
+          <select data-case-type>
+            <option value="demo rápida">Demo rápida</option>
+            <option value="caso documental">Caso documental</option>
+            <option value="caso de riesgo">Caso de riesgo</option>
+            <option value="caso de tablero">Caso de tablero</option>
+          </select>
+        </label>
+        <label>
+          Consulta opcional
+          <input type="text" data-user-input maxlength="180" placeholder="Ej.: evaluar piloto de búsqueda documental">
+        </label>
+        <button class="demo-button" type="submit">Ejecutar demo IA</button>
+      </form>
+      <p class="demo-status" data-demo-status>Ejecutando demo asistida por IA...</p>
       <div class="demo-board">
         <div>
           <span class="demo-label">Entrada</span>
@@ -275,7 +292,7 @@
       <div class="demo-result" data-modal-result></div>
       <div class="demo-detail-grid">
         <section>
-          <span class="demo-label">Flujo de demo</span>
+          <span class="demo-label">Proceso IA</span>
           <ol data-modal-steps></ol>
         </section>
         <section>
@@ -291,6 +308,12 @@
         <div><strong>Riesgo:</strong><span data-modal-risk></span></div>
         <div><strong>Control:</strong><span data-modal-control></span></div>
       </div>
+      <div class="risk-control">
+        <div><strong>Revisión humana:</strong><span data-modal-human-review></span></div>
+        <div><strong>KPIs simulados:</strong><span data-modal-kpis></span></div>
+      </div>
+      <p class="demo-disclaimer" data-modal-disclaimer></p>
+      <p class="author-note">Creado por Pierre R. Contacto: <a href="mailto:peru.labs.pe@gmail.com">peru.labs.pe@gmail.com</a>. Todos los derechos reservados para fines demostrativos y educativos.</p>
     </aside>
   </div>
 

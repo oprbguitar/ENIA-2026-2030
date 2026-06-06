@@ -1,6 +1,7 @@
 const prototypes = [
   {
     badge: "A",
+    id: "documental",
     name: "Asistente Documental IA",
     image: "assets/asistente-documental.png",
     problem: "Demora para encontrar sustento normativo o antecedentes en archivos dispersos.",
@@ -25,6 +26,7 @@ const prototypes = [
   },
   {
     badge: "B",
+    id: "ocr",
     name: "OCR + Extracción de Datos",
     image: "assets/ocr-extraccion.png",
     problem: "Expedientes escaneados difíciles de convertir en datos útiles para seguimiento.",
@@ -49,6 +51,7 @@ const prototypes = [
   },
   {
     badge: "C",
+    id: "riesgos",
     name: "Matriz de Riesgos IA",
     image: "assets/matriz-riesgos.png",
     problem: "Casos de uso sin evaluación previa de impacto, derechos, datos personales o sesgos.",
@@ -73,6 +76,7 @@ const prototypes = [
   },
   {
     badge: "D",
+    id: "tablero",
     name: "Tablero del Plan de Acción IA",
     image: "assets/tablero-plan-accion.png",
     problem: "Iniciativas de IA sin seguimiento ejecutivo, semáforos ni responsables visibles.",
@@ -97,6 +101,7 @@ const prototypes = [
   },
   {
     badge: "E",
+    id: "generador",
     name: "Generador de Documentos Institucionales",
     image: "assets/generador-documentos.png",
     problem: "Borradores administrativos lentos, inconsistentes o sin control de versión.",
@@ -126,6 +131,11 @@ const modal = document.querySelector("[data-modal]");
 const closeModal = document.querySelector("[data-close-modal]");
 const menuToggle = document.querySelector("[data-menu-toggle]");
 const nav = document.querySelector("[data-nav]");
+const demoForm = document.querySelector("[data-demo-form]");
+const caseTypeSelect = document.querySelector("[data-case-type]");
+const userInput = document.querySelector("[data-user-input]");
+const demoStatus = document.querySelector("[data-demo-status]");
+let activePrototype = null;
 
 function createPrototypeCard(item, index) {
   const card = document.createElement("article");
@@ -174,8 +184,86 @@ function renderPrototypes() {
   });
 }
 
+function setLoadingState(message = "Ejecutando demo asistida por IA...") {
+  demoStatus.textContent = message;
+  demoStatus.classList.add("is-loading");
+  document.querySelector("[data-modal-result]").textContent = "La demo está consultando el backend seguro. La clave de IA nunca viaja al navegador.";
+  renderList("[data-modal-steps]", ["Preparando caso simulado", "Consultando endpoint /api/demo", "Estructurando respuesta JSON"], "li");
+  renderList("[data-modal-evidence]", ["Pendiente de respuesta"], "li");
+  document.querySelector("[data-modal-risk]").textContent = "En evaluación";
+  document.querySelector("[data-modal-control]").textContent = "En evaluación";
+  document.querySelector("[data-modal-human-review]").textContent = "Pendiente de respuesta";
+  document.querySelector("[data-modal-kpis]").textContent = "Pendiente de respuesta";
+  document.querySelector("[data-modal-disclaimer]").textContent = "";
+}
+
+function renderDemoResponse(data) {
+  demoStatus.textContent = "Demo IA ejecutada correctamente.";
+  demoStatus.classList.remove("is-loading");
+  document.querySelector("[data-modal-title]").textContent = data.title || activePrototype.name;
+  document.querySelector("[data-modal-input]").textContent = data.inputSummary || activePrototype.input;
+  document.querySelector("[data-modal-processing]").textContent = data.scenario || activePrototype.processing;
+  document.querySelector("[data-modal-output]").textContent = data.prototypeId || activePrototype.output;
+  document.querySelector("[data-modal-result]").textContent = data.simulatedOutput || activePrototype.demo;
+  renderList("[data-modal-steps]", data.aiProcess || activePrototype.steps, "li");
+  renderList("[data-modal-evidence]", data.evidence || activePrototype.evidence, "li");
+  renderNorms(activePrototype.norms);
+  document.querySelector("[data-modal-risk]").textContent = data.risk || activePrototype.risk;
+  document.querySelector("[data-modal-control]").textContent = data.control || activePrototype.control;
+  document.querySelector("[data-modal-human-review]").textContent = data.humanReview || "Revisión obligatoria por responsable institucional.";
+  document.querySelector("[data-modal-kpis]").textContent = Array.isArray(data.kpis) ? data.kpis.join(" | ") : "KPIs no disponibles";
+  document.querySelector("[data-modal-disclaimer]").textContent = data.disclaimer || "Demo asistida por IA. No sustituye validación técnica, legal ni institucional.";
+}
+
+function renderClientFallback() {
+  renderDemoResponse({
+    title: `Demo local: ${activePrototype.name}`,
+    prototypeId: activePrototype.id,
+    scenario: "Fallback visual de navegador cuando el backend no responde.",
+    inputSummary: userInput.value || activePrototype.input,
+    aiProcess: activePrototype.steps,
+    simulatedOutput: activePrototype.demo,
+    evidence: activePrototype.evidence,
+    risk: activePrototype.risk,
+    control: activePrototype.control,
+    humanReview: "El responsable institucional debe validar la salida antes de cualquier uso real.",
+    kpis: ["Respuesta local de contingencia", "Sin uso de API externa", "Sin exposición de claves"],
+    disclaimer: "Demo asistida por IA. No sustituye validación técnica, legal ni institucional."
+  });
+  demoStatus.textContent = "Backend no disponible. Se mostró fallback local sin clave expuesta.";
+}
+
+async function executeAiDemo() {
+  if (!activePrototype) return;
+  setLoadingState();
+
+  try {
+    const response = await fetch("/api/demo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        prototypeId: activePrototype.id,
+        userInput: userInput.value.trim(),
+        demoMode: true,
+        caseType: caseTypeSelect.value
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`API error ${response.status}`);
+    }
+
+    const data = await response.json();
+    renderDemoResponse(data);
+  } catch (error) {
+    console.warn(`[frontend] Fallback local: ${error.message}`);
+    renderClientFallback();
+  }
+}
+
 function openDemo(index) {
   const item = prototypes[index];
+  activePrototype = item;
   const image = document.querySelector("[data-modal-image]");
   document.querySelector("[data-modal-title]").textContent = item.name;
   image.src = item.image;
@@ -189,8 +277,16 @@ function openDemo(index) {
   renderNorms(item.norms);
   document.querySelector("[data-modal-risk]").textContent = item.risk;
   document.querySelector("[data-modal-control]").textContent = item.control;
+  document.querySelector("[data-modal-human-review]").textContent = "El responsable institucional valida el resultado antes de usarlo.";
+  document.querySelector("[data-modal-kpis]").textContent = "Pendiente de ejecutar demo IA.";
+  document.querySelector("[data-modal-disclaimer]").textContent = "Demo asistida por IA. No sustituye validación técnica, legal ni institucional.";
+  demoStatus.textContent = "Ejecutando demo asistida por IA...";
+  demoStatus.classList.add("is-loading");
+  userInput.value = "";
+  caseTypeSelect.value = "demo rápida";
   modal.hidden = false;
   closeModal.focus();
+  executeAiDemo();
 }
 
 function hideDemo() {
@@ -205,6 +301,11 @@ function setupInteractions() {
   });
 
   closeModal.addEventListener("click", hideDemo);
+
+  demoForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    executeAiDemo();
+  });
 
   modal.addEventListener("click", (event) => {
     if (event.target === modal) hideDemo();

@@ -306,7 +306,9 @@ async function downloadDemoResult() {
 }
 
 function renderPrototypes() {
+  const featuredPrototypeIds = ["documental", "riesgos"];
   prototypes.forEach((item, index) => {
+    if (!featuredPrototypeIds.includes(item.id)) return;
     grid.appendChild(createPrototypeCard(item, index));
   });
 }
@@ -487,8 +489,9 @@ function setupRevealAnimation() {
 }
 
 function setupActiveNavigation() {
-  const sections = ["propuesta", "normas", "prototipos", "arquitectura", "ruta", "entregables"]
-    .map((id) => document.getElementById(id));
+  const sections = ["resumen", "simulaciones"]
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
   const links = [...document.querySelectorAll(".main-nav a")];
 
   const observer = new IntersectionObserver((entries) => {

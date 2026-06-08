@@ -2,7 +2,7 @@
 
 Demo funcional para presentar prototipos de IA responsable orientados a entidades públicas, alineados al enfoque de la ENIA 2026-2030, Plan de Acción IA, Oficial de IA, trazabilidad, gestión de riesgos y supervisión humana.
 
-La landing conserva su diseño visual, pero ahora puede ejecutar demos asistidas por IA mediante un backend seguro en Node.js/Express y una sola API externa: Gemini API. La clave nunca se expone en el frontend ni debe subirse a GitHub.
+La landing principal ahora está optimizada como una sola pantalla tipo dashboard: título claro, fuente normativa, descarga del modelo de proyecto y dos simulaciones destacadas. En local puede ejecutar demos asistidas por IA mediante backend seguro en Node.js/Express y una sola API externa: Gemini API. La clave nunca se expone en el frontend ni debe subirse a GitHub.
 
 **Creado por Pierre R.**  
 Contacto: [peru.labs.pe@gmail.com](mailto:peru.labs.pe@gmail.com)  
@@ -62,6 +62,8 @@ Prototipos disponibles:
 - `riesgos`: Matriz de Riesgos IA.
 - `tablero`: Tablero del Plan de Acción IA.
 - `generador`: Generador de Documentos Institucionales.
+
+En la vista pública compacta se muestran dos simulaciones destacadas para evitar scroll: `documental` y `riesgos`.
 
 ## Cómo usar la demo si no conoces IA
 

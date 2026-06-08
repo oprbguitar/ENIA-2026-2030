@@ -2,10 +2,7 @@ import { expect, test } from "@playwright/test";
 
 const prototypeNames = [
   "Asistente Documental IA",
-  "OCR + Extracción de Datos",
-  "Matriz de Riesgos IA",
-  "Tablero del Plan de Acción IA",
-  "Generador de Documentos Institucionales"
+  "Matriz de Riesgos IA"
 ];
 
 test.describe("IA Pública Responsable UI", () => {

@@ -16,6 +16,8 @@ La página toma como fundamento la documentación normativa ubicada en `docs/`:
 - **Anexo de la Resolución Ministerial N.° 152-2026-PCM: Estrategia Nacional de Inteligencia Artificial 2026-2030**.
 - **Publicación oficial en el Diario Oficial El Peruano: aprobación de la Estrategia Nacional de Inteligencia Artificial 2026-2030**.
 
+La página también publica un enlace descargable a `public/downloads/modelo-documentacion-estatal.pdf`, indicado como documentación para generar. Para mayor información se muestra el contacto [peru.labs.pe@gmail.com](mailto:peru.labs.pe@gmail.com).
+
 Este repositorio presenta contexto de demo. No constituye asesoría legal ni reemplaza diagnóstico técnico, revisión de protección de datos personales o aprobación institucional.
 
 ## Arquitectura

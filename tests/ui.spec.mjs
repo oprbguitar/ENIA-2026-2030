@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 
 const prototypeNames = [
-  "Asistente Documental IA",
-  "Matriz de Riesgos IA"
+  "Evaluación de madurez IA",
+  "Gestión de riesgos IA"
 ];
 
 test.describe("IA Pública Responsable UI", () => {
@@ -11,7 +11,7 @@ test.describe("IA Pública Responsable UI", () => {
 
     for (const name of prototypeNames) {
       const card = page.locator(".prototype-card", { hasText: name });
-      await card.getByRole("button", { name: "Ver demo" }).click();
+      await card.getByRole("button", { name: "Iniciar simulación →" }).click();
 
       await expect(page.locator("[data-modal]")).toBeVisible();
       await expect(page.locator("[data-demo-status]")).toContainText("Demo IA ejecutada", { timeout: 15000 });

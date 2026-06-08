@@ -3,6 +3,8 @@ const prototypes = [
     badge: "A",
     id: "documental",
     name: "Asistente Documental IA",
+    featuredName: "Evaluación de madurez IA",
+    featuredSummary: "Diagnóstico del nivel de madurez IA en entidades públicas.",
     image: "assets/asistente-documental.png",
     problem: "Demora para encontrar sustento normativo o antecedentes en archivos dispersos.",
     input: "PDF, Word, Excel, normas, informes, oficios.",
@@ -53,6 +55,8 @@ const prototypes = [
     badge: "C",
     id: "riesgos",
     name: "Matriz de Riesgos IA",
+    featuredName: "Gestión de riesgos IA",
+    featuredSummary: "Identificación y evaluación de riesgos en proyectos de IA.",
     image: "assets/matriz-riesgos.png",
     problem: "Casos de uso sin evaluación previa de impacto, derechos, datos personales o sesgos.",
     input: "Ficha de caso de uso.",
@@ -146,16 +150,16 @@ function createPrototypeCard(item, index) {
   card.innerHTML = `
     <img class="prototype-thumb" src="${item.image}" alt="Visual del prototipo ${item.name}">
     <span class="prototype-badge">Prototipo ${item.badge}</span>
-    <h3>${item.name}</h3>
+    <h3>${item.featuredName || item.name}</h3>
     <dl>
-      <div><dt>Problema</dt><dd>${item.problem}</dd></div>
+      <div><dt>Resumen</dt><dd>${item.featuredSummary || item.problem}</dd></div>
       <div><dt>Entrada</dt><dd>${item.input}</dd></div>
       <div><dt>Procesamiento IA</dt><dd>${item.processing}</dd></div>
       <div><dt>Resultado</dt><dd>${item.output}</dd></div>
       <div><dt>Riesgo</dt><dd>${item.risk}</dd></div>
       <div><dt>Control</dt><dd>${item.control}</dd></div>
     </dl>
-    <button class="demo-button" type="button" data-demo-index="${index}">Ver demo</button>
+    <button class="demo-button" type="button" data-demo-index="${index}">Iniciar simulación →</button>
   `;
   return card;
 }

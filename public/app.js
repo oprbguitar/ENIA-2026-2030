@@ -150,7 +150,7 @@ function createPrototypeCard(item, index) {
   card.innerHTML = `
     <img class="prototype-thumb" src="${item.image}" alt="Visual del prototipo ${item.name}">
     <span class="prototype-badge">Prototipo ${item.badge}</span>
-    <h3>${item.featuredName || item.name}</h3>
+    <h3><span>${index === 0 ? "1." : "2."}</span> ${item.featuredName || item.name}</h3>
     <dl>
       <div><dt>Resumen</dt><dd>${item.featuredSummary || item.problem}</dd></div>
       <div><dt>Entrada</dt><dd>${item.input}</dd></div>

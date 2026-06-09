@@ -403,7 +403,7 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 16px;
+  gap: 14px;
   padding: 18px;
   color: white;
   background:
@@ -413,12 +413,50 @@ h1 {
 
 .download-side h2 {
   margin-bottom: 0;
-  font-size: clamp(1.7rem, 2.55vw, 2.55rem);
+  font-size: clamp(1.55rem, 2.35vw, 2.32rem);
 }
 
 .download-side p {
   margin: 0;
   color: rgba(255, 255, 255, 0.86);
+}
+
+.demo-download-card {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.demo-download-card strong {
+  color: white;
+  font-size: 0.98rem;
+}
+
+.demo-download-card span {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+
+.demo-download-button {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  border-radius: 8px;
+  color: var(--ink);
+  background: linear-gradient(135deg, var(--gold), #fff0b0);
+  font-weight: 950;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+}
+
+.demo-download-button:hover {
+  transform: translateY(-1px);
 }
 
 .download-side .primary-button {
@@ -439,17 +477,22 @@ h1 {
 }
 
 .download-side .mini-metrics {
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin: auto 0 0;
 }
 
 .download-side .mini-metrics strong {
+  display: block;
   color: var(--gold);
+  font-size: 1.45rem;
+  line-height: 1;
 }
 
 .download-side .mini-metrics span {
   color: rgba(255, 255, 255, 0.78);
+  font-size: 0.7rem;
+  line-height: 1.25;
 }
 
 .simulation-zone {

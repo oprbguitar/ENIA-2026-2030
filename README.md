@@ -2,7 +2,7 @@
 
 Demo funcional para presentar prototipos de IA responsable orientados a entidades públicas, alineados al enfoque de la ENIA 2026-2030, Plan de Acción IA, Oficial de IA, trazabilidad, gestión de riesgos y supervisión humana.
 
-La landing principal ahora está optimizada como una sola pantalla tipo dashboard: título claro, fuente normativa, descarga del modelo de proyecto y dos simulaciones destacadas. En local puede ejecutar demos asistidas por IA mediante backend seguro en Node.js/Express y una sola API externa: Gemini API. La clave nunca se expone en el frontend ni debe subirse a GitHub.
+La landing principal ahora está optimizada como una sola pantalla tipo dashboard: título claro, fuente normativa, modelo de proyecto visible y dos simulaciones destacadas. En local puede ejecutar demos asistidas por IA mediante backend seguro en Node.js/Express y una sola API externa: Gemini API. La clave nunca se expone en el frontend ni debe subirse a GitHub.
 
 **Creado por Pierre R.**  
 Contacto: [peru.labs.pe@gmail.com](mailto:peru.labs.pe@gmail.com)  
@@ -16,7 +16,7 @@ La página toma como fundamento la documentación normativa ubicada en `docs/`:
 - **Anexo de la Resolución Ministerial N.° 152-2026-PCM: Estrategia Nacional de Inteligencia Artificial 2026-2030**.
 - **Publicación oficial en el Diario Oficial El Peruano: aprobación de la Estrategia Nacional de Inteligencia Artificial 2026-2030**.
 
-La página también publica un enlace descargable a `public/downloads/modelo-documentacion-estatal.pdf`, indicado como documentación para generar. Para mayor información se muestra el contacto [peru.labs.pe@gmail.com](mailto:peru.labs.pe@gmail.com).
+La página muestra una guía compacta del modelo de proyecto y mantiene como contacto visible [peru.labs.pe@gmail.com](mailto:peru.labs.pe@gmail.com) para mayor información.
 
 Este repositorio presenta contexto de demo. No constituye asesoría legal ni reemplaza diagnóstico técnico, revisión de protección de datos personales o aprobación institucional.
 
@@ -45,7 +45,7 @@ tests/
 
 ## Prototipos
 
-Cada botón `Ver demo` abre un modal, muestra estado de ejecución y llama a `POST /api/demo` con:
+Cada botón `Iniciar simulación` abre un modal, muestra estado de ejecución y llama a `POST /api/demo` con:
 
 ```json
 {
@@ -67,7 +67,7 @@ En la vista pública compacta se muestran dos simulaciones destacadas para evita
 
 ## Cómo usar la demo si no conoces IA
 
-1. Elige un prototipo y pulsa `Ver demo`.
+1. Elige un prototipo y pulsa `Iniciar simulación`.
 2. Selecciona el tipo de caso:
    - `Demo rápida`: genera una explicación breve y descargable en Word.
    - `Caso documental`: genera una salida documental más detallada y descargable en Word.
